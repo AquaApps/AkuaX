@@ -1,0 +1,9 @@
+ext {
+    target_sdk = 33 // 13.0 Tiramisu
+    min_sdk = 24    // 7.0    Nougat
+
+    androidx_annotation_version = "1.4.0"
+    androidx_appcompat_version = "1.4.1"
+    androidx_core_version = "1.8.0"
+    androidx_recyclerview_version = "1.1.0"
+}

@@ -1,0 +1,68 @@
+buildscript {
+    apply from: 'manifest.gradle'
+    repositories {
+        mavenCentral()
+        google()
+        maven { url 'https://jitpack.io' }
+        mavenLocal()
+    }
+}
+
+plugins {
+    id 'com.android.application' version '7.4.2' apply false
+    id 'com.android.library' version '7.4.2' apply false
+    id 'org.jetbrains.kotlin.jvm' version '1.8.0' apply false
+    id 'org.jetbrains.kotlin.android' version '1.9.0' apply false
+}
+
+allprojects {
+    tasks.withType(Javadoc) {
+        options.addStringOption('Xdoclint:none', '-quiet')
+        options.addStringOption('encoding', 'UTF-8')
+        options.addStringOption('charSet', 'UTF-8')
+    }
+}
+
+rootProject.group = 'fan.akua.akuax'
+
+subprojects {
+    afterEvaluate { project ->
+        if (!plugins.hasPlugin('maven-publish')) {
+            return
+        }
+
+        if (project.parent == rootProject) {
+            group = "${rootProject.group}.${project.name}"
+        } else {
+            group = "${rootProject.group}.${project.parent.name}"
+        }
+        version = android.defaultConfig.versionName
+        println("发布包：" + "${project.displayName}: ${group}:${project.name}:${version}")
+
+//        publishing {
+//            publications {
+//                mavenJava(MavenPublication) {
+//                    group project.group
+//                    artifactId project.name
+//                    version android.defaultConfig.versionName
+//                    afterEvaluate {
+//                        from components.release
+//                    }
+//                }
+//            }
+//            repositories {
+//                maven {
+//                    name 'test'
+//                    url 'http://127.0.0.1:8081/repository/fuck/'
+//                    credentials {
+//                    }
+//                }
+//            }
+//        }
+    }
+
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
