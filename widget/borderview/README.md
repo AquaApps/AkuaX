@@ -6,7 +6,7 @@
 <p align="center"><img src="https://github.com/AquaApps/AkuaX/blob/main/assets/borderview.png?raw=true" alt="1600" width="25%"/></p>
 
 <p align="center">
-    <strong>Provide border for Scrollable view.</strong>
+    <strong>Provide top and bottom border for Scrollable view.</strong>
     <br>
     <br>
     <a href="https://github.com/AquaApps/AkuaX/tree/main/widget/borderview/Doc.md">Documentation</a>

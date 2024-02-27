@@ -6,7 +6,7 @@
 <p align="center"><img src="https://github.com/AquaApps/AkuaX/blob/main/assets/borderview.png?raw=true" alt="1600" width="25%"/></p>
 
 <p align="center">
-    <strong>为可滚动的控件提供滚动条。</strong>
+    <strong>为可滚动的控件提供上下边框。</strong>
     <br>
     <br>
     <a href="https://github.com/AquaApps/AkuaX/tree/main/widget/borderview/Doc.md">文档</a>
