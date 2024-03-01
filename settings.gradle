@@ -12,7 +12,6 @@ dependencyResolutionManagement {
         google()
         mavenCentral()
         mavenLocal()
-        maven { url 'https://jitpack.io' }
     }
 }
 
@@ -22,3 +21,6 @@ include ':widget:borderview'
 
 include ':wrapper:layoutInflater'
 include ':wrapper:insets'
+
+include ':misc:pdfconverter'
+include ':misc:ktx'
