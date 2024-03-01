@@ -19,4 +19,4 @@ dependencyResolutionManagement {
 rootProject.name = "AkuaX"
 
 include ':widget:borderview'
-include ':widget:layoutInflater'
+include ':layoutInflater'
