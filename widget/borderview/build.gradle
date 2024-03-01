@@ -11,8 +11,7 @@ android {
         minSdk min_sdk
         targetSdk target_sdk
         versionCode 1
-        versionName '1.0.0'
-        consumerProguardFiles 'consumer-rules.pro'
+        versionName '1.0.1'
     }
     buildFeatures {
         buildConfig = false
