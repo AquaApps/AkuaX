@@ -1,4 +1,4 @@
-package fan.akua.layoutinflater;
+package fan.akua.wrapper.layoutinflater;
 
 
 import android.content.Context;
