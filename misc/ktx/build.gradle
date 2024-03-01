@@ -37,6 +37,6 @@ dependencies {
 }
 
 ext {
-    POM_NAME = "AkuaX Insets"
-    POM_DESCRIPTION = "AkuaX Insets"
+    POM_NAME = "AkuaX Ktx"
+    POM_DESCRIPTION = "AkuaX Ktx"
 }
