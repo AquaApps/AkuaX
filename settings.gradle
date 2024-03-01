@@ -24,3 +24,6 @@ include ':wrapper:insets'
 
 include ':misc:pdfconverter'
 include ':misc:ktx'
+
+include ':io:VeloNIO'
+include ':io:magicrpc'
