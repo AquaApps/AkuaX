@@ -1,10 +1,11 @@
 plugins {
     id 'com.android.library'
+    id 'kotlin-android'
     id 'maven-publish'
 }
 
 android {
-    namespace 'fan.akua.io.velonio'
+    namespace 'fan.akua.io.ktx'
     compileSdk target_sdk
 
     defaultConfig {
@@ -30,11 +31,10 @@ android {
 }
 
 dependencies {
-    testImplementation "junit:junit:4.13.2"
-    testImplementation "com.squareup.okio:okio:3.8.0"
+    implementation project(':io:VeloNIO')
 }
 
 ext {
-    POM_NAME = "AkuaX VeloNIO"
-    POM_DESCRIPTION = "AkuaX VeloNIO"
+    POM_NAME = "AkuaX IOKtx"
+    POM_DESCRIPTION = "AkuaX IOKtx"
 }

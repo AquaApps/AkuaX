@@ -25,5 +25,6 @@ include ':wrapper:insets'
 include ':misc:pdfconverter'
 include ':misc:ktx'
 
+include ':io:ktx'
 include ':io:VeloNIO'
 include ':io:magicRPC'
