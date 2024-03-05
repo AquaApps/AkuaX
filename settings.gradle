@@ -30,5 +30,4 @@ include ':io:VeloNIO'
 include ':io:magicRPC'
 include ':io:ktx'
 
-include ':self:billing'
 
