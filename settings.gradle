@@ -21,10 +21,14 @@ include ':widget:borderview'
 
 include ':wrapper:layoutInflater'
 include ':wrapper:insets'
+include ':wrapper:vary'
 
 include ':misc:pdfconverter'
 include ':misc:ktx'
 
-include ':io:ktx'
 include ':io:VeloNIO'
 include ':io:magicRPC'
+include ':io:ktx'
+
+include ':self:billing'
+

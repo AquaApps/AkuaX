@@ -1,3 +1,6 @@
+def gitCommitId = 'git rev-parse --short HEAD'.execute([], project.rootDir).text.trim()
+def gitCommitCount = Integer.parseInt('git rev-list --count HEAD'.execute([], project.rootDir).text.trim())
+
 ext {
     target_sdk = 33 // 13.0 Tiramisu
     min_sdk = 24    // 7.0    Nougat
@@ -8,4 +11,6 @@ ext {
     androidx_recyclerview_version = "1.1.0"
 
     google_material_version = "1.11.0"
+    versionCode = gitCommitCount
+    versionName = "git.${gitCommitCount}.${gitCommitId}"
 }
