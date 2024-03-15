@@ -3,7 +3,7 @@ def gitCommitCount = Integer.parseInt('git rev-list --count HEAD'.execute([], pr
 
 ext {
     target_sdk = 33 // 13.0 Tiramisu
-    min_sdk = 24    // 7.0    Nougat
+    min_sdk = 21    // 5.0  Lollipop
 
     androidx_annotation_version = "1.4.0"
     androidx_appcompat_version = "1.4.1"
@@ -11,6 +11,8 @@ ext {
     androidx_recyclerview_version = "1.1.0"
 
     google_material_version = "1.11.0"
+
+    lsposed_hiddenapibypass_version = "4.3"
 
     versionCode = gitCommitCount
     versionName = "git.${gitCommitCount}.${gitCommitId}"

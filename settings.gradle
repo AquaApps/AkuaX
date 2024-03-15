@@ -18,10 +18,12 @@ dependencyResolutionManagement {
 rootProject.name = "AkuaX"
 
 include ':widget:borderview'
+include ':widget:fixes'
 
 include ':wrapper:layoutInflater'
 include ':wrapper:insets'
 include ':wrapper:vary'
+include ':wrapper:effi'
 
 include ':misc:pdfconverter'
 include ':misc:ktx'
@@ -30,6 +32,4 @@ include ':io:VeloNIO'
 include ':io:magicRPC'
 include ':io:ktx'
 
-
-include ':wrapper:effi'
 include ':billing'
