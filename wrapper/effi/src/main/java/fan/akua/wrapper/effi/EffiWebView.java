@@ -4,10 +4,10 @@ import android.app.Application;
 import android.os.Looper;
 import android.webkit.WebView;
 
-public class EffiWebView {
+class EffiWebView {
     private static boolean webViewLoaded;
 
-    public void effi(Application application) {
+    public static void preInit(Application application) {
         Looper.myQueue().addIdleHandler(() -> {
             if (webViewLoaded) return false;
             new WebView(application);
