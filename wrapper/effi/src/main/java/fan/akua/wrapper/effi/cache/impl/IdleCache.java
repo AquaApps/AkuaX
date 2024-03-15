@@ -24,7 +24,6 @@ public class IdleCache<T> implements Cache<T>, Checkable {
         this.instanceWrapper = instanceMaker;
         this.lastCheckTime = SystemClock.uptimeMillis();
         this.checker = checker;
-        checker.addCheckable(this);
     }
 
     @Override
@@ -33,6 +32,7 @@ public class IdleCache<T> implements Cache<T>, Checkable {
         if (instance == null) {
             instance = instanceWrapper.makeInstance();
         }
+        checker.addCheckable(this);
         return instance;
     }
 
