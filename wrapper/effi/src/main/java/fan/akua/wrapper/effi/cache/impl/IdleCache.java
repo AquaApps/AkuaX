@@ -11,6 +11,7 @@ import fan.akua.wrapper.effi.cache.Instance;
 
 public class IdleCache<T> implements Cache<T>, Checkable {
     private final Instance<T> instanceWrapper;
+    private final long checkInterval, checkCount;
     private volatile long lastCheckTime;
     private volatile T instance;
     private final AtomicInteger count = new AtomicInteger(1);
@@ -24,7 +25,8 @@ public class IdleCache<T> implements Cache<T>, Checkable {
         this.instanceWrapper = instanceMaker;
         this.lastCheckTime = SystemClock.uptimeMillis();
         this.checker = checker;
-        checker.addCheckable(this);
+        this.checkInterval = instanceMaker.checkInterval();
+        this.checkCount = instanceMaker.checkCount();
     }
 
     @Override
@@ -33,12 +35,13 @@ public class IdleCache<T> implements Cache<T>, Checkable {
         if (instance == null) {
             instance = instanceWrapper.makeInstance();
         }
+        checker.addCheckable(this);
         return instance;
     }
 
     @Override
-    public boolean check() {
-        final boolean clear = count.get() < 3;
+    public boolean tryDestroy() {
+        final boolean clear = count.get() < checkCount;
         if (clear) {
             if (!instanceWrapper.isUsing(instance))
                 destroy();
@@ -49,6 +52,7 @@ public class IdleCache<T> implements Cache<T>, Checkable {
 
     @Override
     public void destroy() {
+        instanceWrapper.destroyInstance(instance);
         instance = null;
         checker.removeCheckable(this);
     }
@@ -65,8 +69,8 @@ public class IdleCache<T> implements Cache<T>, Checkable {
     @Override
     public boolean checkOnce() {
         final long now = SystemClock.uptimeMillis();
-        if ((lastCheckTime + instanceWrapper.checkInterval()) < now) {
-            return check();
+        if ((lastCheckTime + checkInterval) < now) {
+            return tryDestroy();
         }
         lastCheckTime = now;
         return false;
