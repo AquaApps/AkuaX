@@ -11,6 +11,7 @@ public class TestApplication extends Application {
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
         ApplicationWrapper.set(this);
+        // todo: effi's WebView is not work on Android 8.0
         Effi.preInitWebView();
     }
 
