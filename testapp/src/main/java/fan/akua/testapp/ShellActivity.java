@@ -24,7 +24,7 @@ public class ShellActivity extends Activity {
 
         @Override
         public boolean isUsing(Shell instance) {
-            String logMsg = "shell check "+instance.isRunning();
+            String logMsg = "shell check " + instance.isRunning();
             Log.d("simon", logMsg);
             tv1.post(() -> tv2.setText(tv2.getText() + "\n" + logMsg));
             return instance.isRunning();
@@ -45,7 +45,7 @@ public class ShellActivity extends Activity {
 
         @Override
         public long checkInterval() {
-            return 100;
+            return 3 * 1000; // 3s
         }
     });
     TextView tv1;
