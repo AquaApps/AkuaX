@@ -33,3 +33,4 @@ include ':io:magicRPC'
 include ':io:ktx'
 
 include ':billing'
+include ':testapp'

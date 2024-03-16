@@ -8,6 +8,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import fan.akua.wrapper.effi.cache.Checkable;
 import fan.akua.wrapper.effi.cache.Checker;
 
+// todo: memory leak, messageQueue not call removeIdleHandler
 public class LooperChecker implements Checker, MessageQueue.IdleHandler {
     private final CopyOnWriteArrayList<Checkable> checkables = new CopyOnWriteArrayList<>();
 
