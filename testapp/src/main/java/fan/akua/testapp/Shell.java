@@ -4,6 +4,11 @@ import java.util.Random;
 
 public class Shell {
     private volatile boolean isRunning;
+    private long[] mockData;
+
+    public Shell() {
+        mockData = new long[0xdeed];
+    }
 
     public String run() {
         isRunning = true;
@@ -21,6 +26,7 @@ public class Shell {
     }
 
     public void destroy() {
-
+        mockData = null;
+        System.gc();
     }
 }

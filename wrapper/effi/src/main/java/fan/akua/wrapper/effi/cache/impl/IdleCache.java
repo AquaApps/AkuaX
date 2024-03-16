@@ -1,6 +1,7 @@
 package fan.akua.wrapper.effi.cache.impl;
 
 import android.os.SystemClock;
+import android.util.Log;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -43,11 +44,14 @@ public class IdleCache<T> implements Cache<T>, Checkable {
     public boolean tryDestroy() {
         final boolean clear = count.get() < checkCount;
         if (clear) {
-            if (!instanceWrapper.isUsing(instance))
+            if (instance != null && !instanceWrapper.isUsing(instance)) {
                 destroy();
+                count.set(0);
+                return true;
+            }
         }
         count.set(0);
-        return clear;
+        return false;
     }
 
     @Override
@@ -70,9 +74,10 @@ public class IdleCache<T> implements Cache<T>, Checkable {
     public boolean checkOnce() {
         final long now = SystemClock.uptimeMillis();
         if ((lastCheckTime + checkInterval) < now) {
-            return tryDestroy();
+            lastCheckTime = now;
+            return !tryDestroy();
         }
         lastCheckTime = now;
-        return false;
+        return true;
     }
 }
