@@ -43,7 +43,7 @@ public class IdleCache<T> implements Cache<T>, Checkable {
     public boolean tryDestroy() {
         final boolean clear = count.get() < checkCount;
         if (clear) {
-            if (instance != null && !instanceWrapper.isUsing(instance))
+            if (!instanceWrapper.isUsing(instance))
                 destroy();
         }
         count.set(0);
