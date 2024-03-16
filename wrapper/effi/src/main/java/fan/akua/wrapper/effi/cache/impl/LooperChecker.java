@@ -33,7 +33,6 @@ public class LooperChecker implements Checker, MessageQueue.IdleHandler {
 
     @Override
     public boolean queueIdle() {
-        Log.e("simon","Idle check");
         for (Checkable checkable : checkables) {
             checkable.checkOnce();
         }
