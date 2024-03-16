@@ -37,6 +37,16 @@ public class ShellActivity extends Activity {
             tv1.post(() -> tv2.setText(tv2.getText() + "\n" + logMsg));
             instance.destroy();
         }
+
+        @Override
+        public long checkCount() {
+            return 1;
+        }
+
+        @Override
+        public long checkInterval() {
+            return 100;
+        }
     });
     TextView tv1;
     TextView tv2;

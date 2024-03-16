@@ -2,6 +2,7 @@ package fan.akua.wrapper.effi.cache.impl;
 
 import android.os.Looper;
 import android.os.MessageQueue;
+import android.util.Log;
 
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -32,9 +33,10 @@ public class LooperChecker implements Checker, MessageQueue.IdleHandler {
 
     @Override
     public boolean queueIdle() {
+        Log.e("simon","Idle check");
         for (Checkable checkable : checkables) {
             checkable.checkOnce();
         }
-        return false;
+        return true;
     }
 }

@@ -7,7 +7,7 @@ import android.webkit.WebView;
 class EffiWebView {
     private static boolean webViewLoaded;
 
-    public static void preInit(Application application) {
+    static void preInit(Application application) {
         Looper.myQueue().addIdleHandler(() -> {
             if (webViewLoaded) return false;
             new WebView(application);
