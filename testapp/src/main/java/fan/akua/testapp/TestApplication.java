@@ -12,7 +12,8 @@ public class TestApplication extends Application {
         super.attachBaseContext(base);
         ApplicationWrapper.set(this);
         // todo: effi's WebView is not work on Android 8.0
-        Effi.preInitWebView();
+//        Effi.preInitWebView();
+        Trace.start("Effi");
     }
 
     @Override
@@ -20,3 +21,10 @@ public class TestApplication extends Application {
         super.onCreate();
     }
 }
+//61071406
+//48316146
+//52118073
+
+//48859531
+//33868698
+//36680416

@@ -54,6 +54,7 @@ public class ShellActivity extends Activity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Trace.end("Effi");
         setContentView(R.layout.shell_layout);
         tv1 = findViewById(R.id.tv1);
         tv2 = findViewById(R.id.tv2);
