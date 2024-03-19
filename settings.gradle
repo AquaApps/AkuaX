@@ -34,3 +34,6 @@ include ':io:ktx'
 
 include ':billing'
 include ':testapp'
+include ':layout'
+include ':widget:acgview'
+include ':unofficial'
