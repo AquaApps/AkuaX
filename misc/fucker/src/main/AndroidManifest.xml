@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <application>
+        <service
+            android:name=".Fucker"
+            android:allowSharedIsolatedProcess="false"
+            android:exported="false"
+            android:isolatedProcess="true"
+            android:process=":zygote"
+            tools:ignore="UnusedAttribute" />
+    </application>
+</manifest>
