@@ -135,9 +135,9 @@ class VaryAdapter : RecyclerView.Adapter<VaryAdapter.BindingViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BindingViewHolder {
         val viewCreate = ViewCreate(viewType)
         onCreate?.invoke(viewCreate)
-        if (viewCreate.view == null) {
-            viewCreate.view = LayoutInflater.from(parent.context).inflate(viewType, parent, false)
-        }
+//        if (viewCreate.view == null) {
+        viewCreate.view = LayoutInflater.from(parent.context).inflate(viewType, parent, false)
+//        }
         return BindingViewHolder(viewCreate)
     }
 
