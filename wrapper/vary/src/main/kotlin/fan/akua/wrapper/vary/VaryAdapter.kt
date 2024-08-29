@@ -142,7 +142,7 @@ class VaryAdapter : RecyclerView.Adapter<VaryAdapter.BindingViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: BindingViewHolder, position: Int) {
-        mModel = getModel(position)
+        mModel = getModel(holder.adapterPosition)
         onBind?.invoke(holder)
     }
 
