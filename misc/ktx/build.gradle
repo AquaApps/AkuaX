@@ -2,6 +2,7 @@ plugins {
     id 'com.android.library'
     id 'kotlin-android'
     id 'maven-publish'
+    id 'signing'
 }
 
 android {
@@ -28,11 +29,14 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
 }
 
 dependencies {
     implementation "androidx.annotation:annotation:$androidx_annotation_version"
-    implementation "androidx.core:core:$androidx_core_version"
+    implementation "androidx.core:core-ktx:$androidx_core_version"
     implementation "com.google.android.material:material:$google_material_version"
 }
 

@@ -1,0 +1,26 @@
+subprojects {
+    afterEvaluate { project ->
+        if (!plugins.hasPlugin('maven-publish')) {
+            return
+        }
+        if (project.parent == rootProject) {
+            group = "${rootProject.group}.${project.name}"
+        } else {
+            group = "${rootProject.group}.${project.parent.name}"
+        }
+        version = android.defaultConfig.versionName
+        println("Process Module:" + "${project.displayName}: ${group}:${project.name}:${version}")
+        publishing {
+            publications {
+                mavenJava(MavenPublication) {
+                    group project.group
+                    artifactId project.name
+                    version android.defaultConfig.versionName
+                    afterEvaluate {
+                        from components.release
+                    }
+                }
+            }
+        }
+    }
+}

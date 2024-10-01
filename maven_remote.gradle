@@ -1,0 +1,75 @@
+subprojects {
+    afterEvaluate { project ->
+        if (!plugins.hasPlugin('maven-publish')) {
+            return
+        }
+
+        if (project.parent == rootProject) {
+            group = "${rootProject.group}.${project.name}"
+        } else {
+            group = "${rootProject.group}.${project.parent.name}"
+        }
+        version = android.defaultConfig.versionName
+        println("Process Module:" + "${project.displayName}: ${group}:${project.name}:${version}")
+
+        publishing {
+            publications {
+                mavenJava(MavenPublication) {
+                    group project.group
+                    artifactId project.name
+                    version android.defaultConfig.versionName
+                    afterEvaluate {
+                        from components.release
+                    }
+
+                    pom {
+                        name = POM_NAME
+                        description = POM_DESCRIPTION
+                        url = 'https://github.com/AquaApps/AkuaX'
+                        licenses {
+                            license {
+                                name = 'MIT License'
+                                url = 'https://github.com/AquaApps/AkuaX/blob/main/LICENSE'
+                            }
+                        }
+                        developers {
+                            developer {
+                                name = 'Akua / Aqua'
+                                url = 'https://github.com/A-kua'
+                            }
+                        }
+                    }
+                }
+            }
+            repositories {
+                maven {
+                    allowInsecureProtocol true
+                    url 'http://maven.akua.fan:8081/repository/akuax/'
+                    credentials {
+                        username "xxx"
+                        password "xxx"
+                    }
+                }
+            }
+        }
+    }
+    afterEvaluate {
+        if (!plugins.hasPlugin('signing')) {
+            return
+        }
+
+        android {
+            publishing {
+                singleVariant("release") {
+                    withSourcesJar()
+                    withJavadocJar()
+                }
+            }
+        }
+
+        signing {
+            useGpgCmd()
+            sign publishing.publications
+        }
+    }
+}
