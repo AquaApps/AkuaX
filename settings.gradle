@@ -29,12 +29,6 @@ include ':misc:pdfconverter'
 include ':misc:ktx'
 
 include ':io:VeloNIO'
-include ':io:magicRPC'
 include ':io:ktx'
 
-include ':billing'
 include ':testapp'
-include ':layout'
-include ':widget:acgview'
-include ':unofficial'
-include ':misc:fucker'
