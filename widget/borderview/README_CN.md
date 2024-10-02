@@ -1,10 +1,8 @@
-<p >
+<p>
     <a href="https://github.com/AquaApps/AkuaX/tree/main/widget/borderview/">English</a>
     | <a href="https://github.com/AquaApps/AkuaX/tree/main/widget/borderview/README_CN.md">中文</a>
 </p>
-
 <p align="center"><img src="https://github.com/AquaApps/AkuaX/blob/main/assets/borderview.png?raw=true" alt="1600" width="25%"/></p>
-
 <p align="center">
     <strong>为可滚动的控件提供上下边框。</strong>
     <br>
@@ -13,12 +11,7 @@
     | <a href="https://github.com/AquaApps/AkuaX/blob/main/assets/borderview_demo.apk">下载体验</a>
     <br>
 </p>
-
 <br>
-
-Borderview 是从RikkaX中拷贝，修改架构后的产物。我在此表达对Rikka和hvv的感谢。
-
-<p align="center"><strong>再次感谢Rikka和hvv</strong></p>
 
 ## 特性
 
@@ -26,9 +19,15 @@ Borderview 是从RikkaX中拷贝，修改架构后的产物。我在此表达对
 - [x] 纯Java。
 - [x] 支持自定义Drawable。
 - [x] 支持RecyclerView以及NestedScrollView。
-- [x] 永远向下兼容
+- [x] 永远向下兼容。
 
-## 安装
+## 使用
+
+<p align="center">
+    <img src="https://img.shields.io/nexus/akuax/fan.akua.akuax.widget/borderview?server=http%3A%2F%2Fmaven.akua.fan%3A8081%2F" alt="version"/>
+    <img src="https://img.shields.io/badge/license-MIT-blue" alt="license"/>
+</p>
+
 
 Project 的 settings.gradle 添加仓库
 
@@ -36,7 +35,9 @@ Project 的 settings.gradle 添加仓库
 dependencyResolutionManagement {
     repositories {
         // ...
-        maven { url 'https://fan.akua' }
+        maven(url = "http://maven.akua.fan:8081/repository/akuax/").apply {
+            isAllowInsecureProtocol = true
+        }
     }
 }
 ```

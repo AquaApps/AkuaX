@@ -1,35 +1,31 @@
 <p>
-    <a href="https://github.com/AquaApps/AkuaX/tree/main/widget/borderview/">English</a>
-    | <a href="https://github.com/AquaApps/AkuaX/tree/main/widget/borderview/README_CN.md">中文</a>
+    <a href="https://github.com/AquaApps/AkuaX/tree/main/io/VeloNIO/">English</a>
+    | <a href="https://github.com/AquaApps/AkuaX/tree/main/io/VeloNIO/README_CN.md">中文</a>
 </p>
-<p align="center"><img src="https://github.com/AquaApps/AkuaX/blob/main/assets/borderview.png?raw=true" alt="1600" width="25%"/></p>
 <p align="center">
-    <strong>Provide top and bottom border for Scrollable view.</strong>
+    <strong>非常快的IO读写框架</strong>
     <br>
     <br>
-    <a href="https://github.com/AquaApps/AkuaX/tree/main/widget/borderview/Doc.md">Documentation</a>
-    | <a href="https://github.com/AquaApps/AkuaX/blob/main/assets/borderview_demo.apk">Download Demo App</a>
+    <a href="https://github.com/AquaApps/AkuaX/tree/main/io/VeloNIO/Doc.md">文档</a>
     <br>
 </p>
 <br>
 
+## 特性
 
-## Features
+- [x] 使用内存映射读写文件。
+- [x] 支持自定义缓冲区策略。
+- [x] 永远向下兼容。
 
-- [x] Easy for use.
-- [x] Pure Java.
-- [x] Can use your Drawable.
-- [x] Support for RecyclerView and NestedScrollView.
-- [x] Always backward compatible.
-
-## Use
+## 使用
 
 <p align="center">
-    <img src="https://img.shields.io/nexus/akuax/fan.akua.akuax.widget/borderview?server=http%3A%2F%2Fmaven.akua.fan%3A8081%2F" alt="version"/>
+    <img src="https://img.shields.io/nexus/akuax/fan.akua.akuax.io/VeloNIO?server=http%3A%2F%2Fmaven.akua.fan%3A8081%2F" alt="version"/>
     <img src="https://img.shields.io/badge/license-MIT-blue" alt="license"/>
 </p>
 
-Add the remote repository to the root build.gradle file
+
+Project 的 settings.gradle 添加仓库
 
 ```kotlin
 dependencyResolutionManagement {
@@ -42,11 +38,11 @@ dependencyResolutionManagement {
 }
 ```
 
-Then, add the framework dependency to the module's build.gradle file:
+Module 的 build.gradle 添加依赖框架
 
 ```groovy
 dependencies {
-    implementation 'fan.akua.akuax.widget:borderview:+'
+    implementation 'fan.akua.akuax.io:VeloNIO:+'
 }
 ```
 

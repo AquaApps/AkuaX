@@ -1,33 +1,29 @@
 <p>
-    <a href="https://github.com/AquaApps/AkuaX/tree/main/widget/borderview/">English</a>
-    | <a href="https://github.com/AquaApps/AkuaX/tree/main/widget/borderview/README_CN.md">中文</a>
+    <a href="https://github.com/AquaApps/AkuaX/tree/main/io/VeloNIO/">English</a>
+    | <a href="https://github.com/AquaApps/AkuaX/tree/main/io/VeloNIO/README_CN.md">中文</a>
 </p>
-<p align="center"><img src="https://github.com/AquaApps/AkuaX/blob/main/assets/borderview.png?raw=true" alt="1600" width="25%"/></p>
 <p align="center">
-    <strong>Provide top and bottom border for Scrollable view.</strong>
+    <strong>Very fast IO read-write library</strong>
     <br>
     <br>
-    <a href="https://github.com/AquaApps/AkuaX/tree/main/widget/borderview/Doc.md">Documentation</a>
-    | <a href="https://github.com/AquaApps/AkuaX/blob/main/assets/borderview_demo.apk">Download Demo App</a>
+    <a href="https://github.com/AquaApps/AkuaX/tree/main/io/VeloNIO/Doc.md">Documentation</a>
     <br>
 </p>
 <br>
 
+## 特性
 
-## Features
-
-- [x] Easy for use.
-- [x] Pure Java.
-- [x] Can use your Drawable.
-- [x] Support for RecyclerView and NestedScrollView.
+- [x] Use mmap.
+- [x] Can custom caching strategy.
 - [x] Always backward compatible.
 
-## Use
+## 使用
 
 <p align="center">
-    <img src="https://img.shields.io/nexus/akuax/fan.akua.akuax.widget/borderview?server=http%3A%2F%2Fmaven.akua.fan%3A8081%2F" alt="version"/>
+    <img src="https://img.shields.io/nexus/akuax/fan.akua.akuax.io/VeloNIO?server=http%3A%2F%2Fmaven.akua.fan%3A8081%2F" alt="version"/>
     <img src="https://img.shields.io/badge/license-MIT-blue" alt="license"/>
 </p>
+
 
 Add the remote repository to the root build.gradle file
 
@@ -46,7 +42,7 @@ Then, add the framework dependency to the module's build.gradle file:
 
 ```groovy
 dependencies {
-    implementation 'fan.akua.akuax.widget:borderview:+'
+    implementation 'fan.akua.akuax.io:VeloNIO:+'
 }
 ```
 
