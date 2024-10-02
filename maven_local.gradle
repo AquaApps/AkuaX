@@ -8,16 +8,27 @@ subprojects {
         } else {
             group = "${rootProject.group}.${project.parent.name}"
         }
-        version = android.defaultConfig.versionName
+        if (plugins.hasPlugin('com.android.library')) {
+            version = android.defaultConfig.versionName
+        } else if (plugins.hasPlugin('java-library')) {
+            version = POM_VERSION
+        } else {
+            println("Ignore publish ${project.displayName}")
+            return
+        }
         println("Process Module:" + "${project.displayName}: ${group}:${project.name}:${version}")
         publishing {
             publications {
                 mavenJava(MavenPublication) {
                     group project.group
                     artifactId project.name
-                    version android.defaultConfig.versionName
+                    version version
                     afterEvaluate {
-                        from components.release
+                        if (plugins.hasPlugin('com.android.library')) {
+                            from components.release
+                        } else if (plugins.hasPlugin('java-library')) {
+                            from components.java
+                        }
                     }
                 }
             }

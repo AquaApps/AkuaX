@@ -44,4 +44,5 @@ tasks {
 ext {
     POM_NAME = "AkuaX StringFucker"
     POM_DESCRIPTION = "AkuaX StringFucker"
+    POM_VERSION = "0.0.1"
 }

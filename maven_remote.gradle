@@ -3,23 +3,34 @@ subprojects {
         if (!plugins.hasPlugin('maven-publish')) {
             return
         }
-
         if (project.parent == rootProject) {
             group = "${rootProject.group}.${project.name}"
         } else {
             group = "${rootProject.group}.${project.parent.name}"
         }
-        version = android.defaultConfig.versionName
-        println("Process Module:" + "${project.displayName}: ${group}:${project.name}:${version}")
+        if (plugins.hasPlugin('com.android.library')) {
+            version = android.defaultConfig.versionName
+        } else if (plugins.hasPlugin('java-library')) {
+            version = POM_VERSION
+        } else {
+            println("Ignore publish ${project.displayName}")
+            return
+        }
 
+        println("Process Module: ${project.displayName}: ${group}:${project.name}:${version}")
         publishing {
             publications {
                 mavenJava(MavenPublication) {
                     group project.group
                     artifactId project.name
-                    version android.defaultConfig.versionName
+                    version version
+
                     afterEvaluate {
-                        from components.release
+                        if (plugins.hasPlugin('com.android.library')) {
+                            from components.release
+                        } else if (plugins.hasPlugin('java-library')) {
+                            from components.java
+                        }
                     }
 
                     pom {
@@ -54,18 +65,28 @@ subprojects {
         }
     }
     afterEvaluate {
-        if (!plugins.hasPlugin('signing')) {
+        if (!plugins.hasPlugin('maven-publish') || !plugins.hasPlugin('signing')) {
+            return
+        }
+        if (plugins.hasPlugin('com.android.library')) {
+            android {
+                publishing {
+                    singleVariant("release") {
+                        withSourcesJar()
+                        withJavadocJar()
+                    }
+                }
+            }
+        } else if (plugins.hasPlugin('java-library')) {
+            java {
+                withJavadocJar()
+                withSourcesJar()
+            }
+        } else {
+            println("Ignore singing ${project.displayName}")
             return
         }
 
-        android {
-            publishing {
-                singleVariant("release") {
-                    withSourcesJar()
-                    withJavadocJar()
-                }
-            }
-        }
 
         signing {
             useGpgCmd()

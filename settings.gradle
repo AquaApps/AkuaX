@@ -31,6 +31,6 @@ include ':misc:ktx'
 include ':io:VeloNIO'
 include ':io:ktx'
 
-//include ':protect:stringFucker'
+include ':protect:stringFucker'
 
 include ':testapp'
