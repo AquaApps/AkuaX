@@ -1,0 +1,16 @@
+plugins {
+    id 'java-library'
+    id 'maven-publish'
+    id 'signing'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
+}
+
+ext {
+    POM_NAME = "AkuaX StringFucker Interface"
+    POM_DESCRIPTION = "AkuaX StringFucker Interface"
+    POM_VERSION = "1.0.0"
+}

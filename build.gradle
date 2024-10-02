@@ -27,10 +27,10 @@ allprojects {
 
 rootProject.group = 'fan.akua.akuax'
 
-//apply from: './maven_local.gradle'
+apply from: './maven_local.gradle'
 
 // The following is used for mavenCentral publish.
-apply from: './maven_remote.gradle'
+//apply from: './maven_remote.gradle'
 
 tasks.register('clean', Delete) {
     delete rootProject.buildDir

@@ -1,35 +1,31 @@
 <p>
-    <a href="https://github.com/AquaApps/AkuaX/tree/main/widget/borderview/">English</a>
-    | <a href="https://github.com/AquaApps/AkuaX/tree/main/widget/borderview/README_CN.md">中文</a>
+    <a href="https://github.com/AquaApps/AkuaX/tree/main/protect/stringFucker-gradle-plugin/README.md">English</a>
+    | <a href="https://github.com/AquaApps/AkuaX/tree/main/protect/stringFucker-gradle-plugin/README_CN.md">中文</a>
 </p>
 <p align="center"><img src="https://github.com/AquaApps/AkuaX/blob/main/assets/borderview.png?raw=true" alt="1600" width="25%"/></p>
 <p align="center">
-    <strong>Provide top and bottom border for Scrollable view.</strong>
+    <strong>字符串混淆插件。</strong>
     <br>
     <br>
-    <a href="https://github.com/AquaApps/AkuaX/tree/main/widget/borderview/Doc.md">Documentation</a>
-    | <a href="https://github.com/AquaApps/AkuaX/blob/main/assets/borderview_demo.apk">Download Demo App</a>
+    <a href="https://github.com/AquaApps/AkuaX/tree/main/protect/stringFucker-gradle-plugin/Doc.md">文档</a>
     <br>
 </p>
 <br>
 
 
-## Features
+## 特性
 
-- [x] Easy for use.
-- [x] Pure Java.
-- [x] Can use your Drawable.
-- [x] Support for RecyclerView and NestedScrollView.
-- [x] Always backward compatible.
+- [x] 易于上手。
+- [x] 支持自定义加密算法。
 
-## Use
+## 使用
 
 <p align="center">
-    <img src="https://img.shields.io/nexus/akuax/fan.akua.akuax.widget/borderview?server=http%3A%2F%2Fmaven.akua.fan%3A8081%2F" alt="version"/>
+    <img src="https://img.shields.io/nexus/akuax/fan.akua.akuax.protect/stringFucker-gradle-plugin?server=http%3A%2F%2Fmaven.akua.fan%3A8081%2F" alt="version"/>
     <img src="https://img.shields.io/badge/license-MIT-blue" alt="license"/>
 </p>
 
-Add the remote repository to the root settings.gradle file
+在顶层setting.gradle中加入
 
 ```kotlin
 dependencyResolutionManagement {
@@ -42,11 +38,35 @@ dependencyResolutionManagement {
 }
 ```
 
-Then, add the framework dependency to the module's build.gradle file:
+在顶级build.gradle中加入
+
+```kotlin
+buildscript {
+    dependencies {
+        classpath 'fan.akua.akuax.stringFucker-algorithm:xor:+'
+        classpath 'fan.akua.akuax.protect:stringFucker-gradle-plugin:+'
+    }
+}
+plugins {
+    alias(libs.plugins.android.application) apply false
+}
+```
+
+在app模块的build.gradle中加入
 
 ```groovy
+import fan.akua.protect.stringfucker.StorageMode
+import fan.akua.stringFucker.algo.XOR
+apply plugin: 'stringFucker'
+
+stringFucker {
+    debug false
+    enable true
+    implementation new XOR()
+    mode StorageMode.Java
+}
 dependencies {
-    implementation 'fan.akua.akuax.widget:borderview:+'
+    implementation 'fan.akua.akuax.stringFucker-algorithm:xor:+'
 }
 ```
 

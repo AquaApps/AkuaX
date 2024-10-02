@@ -31,6 +31,13 @@ include ':misc:ktx'
 include ':io:VeloNIO'
 include ':io:ktx'
 
-include ':protect:stringFucker'
+include ':protect:stringFucker-interface'
+include ':protect:stringFucker-gradle-plugin'
+file('protect/stringFucker-algorithm').listFiles().each {
+    if (it.isDirectory()) {
+        include ":protect:stringFucker-algorithm:${it.name}"
+    }
+}
 
 include ':testapp'
+

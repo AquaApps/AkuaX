@@ -1,14 +1,13 @@
 <p>
-    <a href="https://github.com/AquaApps/AkuaX/tree/main/widget/borderview/">English</a>
-    | <a href="https://github.com/AquaApps/AkuaX/tree/main/widget/borderview/README_CN.md">中文</a>
+    <a href="https://github.com/AquaApps/AkuaX/tree/main/protect/stringFucker-gradle-plugin/README.md">English</a>
+    | <a href="https://github.com/AquaApps/AkuaX/tree/main/protect/stringFucker-gradle-plugin/README_CN.md">中文</a>
 </p>
 <p align="center"><img src="https://github.com/AquaApps/AkuaX/blob/main/assets/borderview.png?raw=true" alt="1600" width="25%"/></p>
 <p align="center">
-    <strong>Provide top and bottom border for Scrollable view.</strong>
+    <strong>A Gradle-Plugin for string obfuscator.</strong>
     <br>
     <br>
-    <a href="https://github.com/AquaApps/AkuaX/tree/main/widget/borderview/Doc.md">Documentation</a>
-    | <a href="https://github.com/AquaApps/AkuaX/blob/main/assets/borderview_demo.apk">Download Demo App</a>
+    <a href="https://github.com/AquaApps/AkuaX/tree/main/protect/stringFucker-gradle-plugin/Doc.md">Documentation</a>
     <br>
 </p>
 <br>
@@ -17,15 +16,12 @@
 ## Features
 
 - [x] Easy for use.
-- [x] Pure Java.
-- [x] Can use your Drawable.
-- [x] Support for RecyclerView and NestedScrollView.
-- [x] Always backward compatible.
+- [x] Can custom algorithm.
 
 ## Use
 
 <p align="center">
-    <img src="https://img.shields.io/nexus/akuax/fan.akua.akuax.widget/borderview?server=http%3A%2F%2Fmaven.akua.fan%3A8081%2F" alt="version"/>
+    <img src="https://img.shields.io/nexus/akuax/fan.akua.akuax.protect/stringFucker-gradle-plugin?server=http%3A%2F%2Fmaven.akua.fan%3A8081%2F" alt="version"/>
     <img src="https://img.shields.io/badge/license-MIT-blue" alt="license"/>
 </p>
 
@@ -42,11 +38,35 @@ dependencyResolutionManagement {
 }
 ```
 
-Then, add the framework dependency to the module's build.gradle file:
+Add the classpath to the root build.gradle file
+
+```kotlin
+buildscript {
+    dependencies {
+        classpath 'fan.akua.akuax.stringFucker-algorithm:xor:+'
+        classpath 'fan.akua.akuax.protect:stringFucker-gradle-plugin:+'
+    }
+}
+plugins {
+    alias(libs.plugins.android.application) apply false
+}
+```
+
+Then, add the following codeblock to the module's build.gradle file:
 
 ```groovy
+import fan.akua.protect.stringfucker.StorageMode
+import fan.akua.stringFucker.algo.XOR
+apply plugin: 'stringFucker'
+
+stringFucker {
+    debug false
+    enable true
+    implementation new XOR()
+    mode StorageMode.Java
+}
 dependencies {
-    implementation 'fan.akua.akuax.widget:borderview:+'
+    implementation 'fan.akua.akuax.stringFucker-algorithm:xor:+'
 }
 ```
 

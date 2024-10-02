@@ -3,34 +3,37 @@ subprojects {
         if (!plugins.hasPlugin('maven-publish')) {
             return
         }
+        // Fix project.group
+        def fixedGroup
         if (project.parent == rootProject) {
-            group = "${rootProject.group}.${project.name}"
+            fixedGroup = "${rootProject.group}.${project.name}"
         } else {
-            group = "${rootProject.group}.${project.parent.name}"
+            fixedGroup = "${rootProject.group}.${project.parent.name}"
         }
+        def fixedVersion
         if (plugins.hasPlugin('com.android.library')) {
-            version = android.defaultConfig.versionName
+            fixedVersion = android.defaultConfig.versionName
         } else if (plugins.hasPlugin('java-library')) {
-            version = POM_VERSION
+            fixedVersion = POM_VERSION
         } else {
             println("Ignore publish ${project.displayName}")
             return
         }
 
-        println("Process Module: ${project.displayName}: ${group}:${project.name}:${version}")
+        // Publish Module: project ':protect:stringFucker-gradle-plugin' -> fan.akua.akuax.protect:stringFucker-gradle-plugin:0.0.4
+        println("Publish Module: ${project.displayName} -> ${fixedGroup}:${project.name}:${fixedVersion}")
         publishing {
             publications {
                 mavenJava(MavenPublication) {
-                    group project.group
+                    group fixedGroup
                     artifactId project.name
-                    version version
-
-                    afterEvaluate {
-                        if (plugins.hasPlugin('com.android.library')) {
+                    version fixedVersion
+                    if (plugins.hasPlugin('com.android.library')) {
+                        afterEvaluate {
                             from components.release
-                        } else if (plugins.hasPlugin('java-library')) {
-                            from components.java
                         }
+                    } else if (plugins.hasPlugin('java-library')) {
+                        from components.java
                     }
 
                     pom {
@@ -64,6 +67,7 @@ subprojects {
             }
         }
     }
+
     afterEvaluate {
         if (!plugins.hasPlugin('maven-publish') || !plugins.hasPlugin('signing')) {
             return
@@ -87,10 +91,9 @@ subprojects {
             return
         }
 
-
         signing {
             useGpgCmd()
-            sign publishing.publications
+            sign publishing.publications.mavenJava
         }
     }
 }
