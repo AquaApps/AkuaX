@@ -24,4 +24,6 @@ public interface IStringFucker {
      * @return The original string.
      */
     String decrypt(byte[] data, byte[] key);
+
+    boolean canFuck(String str);
 }
