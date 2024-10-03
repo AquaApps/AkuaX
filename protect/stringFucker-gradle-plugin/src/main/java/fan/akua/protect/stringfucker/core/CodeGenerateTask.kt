@@ -1,6 +1,6 @@
 package fan.akua.protect.stringfucker.core
 
-import fan.akua.protect.stringfucker.StorageMode
+import fan.akua.protect.stringfucker.FuckMode
 import org.gradle.api.DefaultTask
 import org.gradle.api.provider.Property
 import org.gradle.api.tasks.CacheableTask
@@ -16,7 +16,7 @@ import javax.inject.Inject
 abstract class CodeGenerateTask @Inject constructor() : DefaultTask() {
     companion object {
         const val PLUGIN_CLASS_NAME = "StringFucker"
-        const val PLUGIN_PACKAGE_NAME = "fan.akua.protect"
+        const val PLUGIN_PACKAGE_NAME = "fan.akua.protect.stringfucker"
     }
 
     @get:Input
@@ -26,7 +26,7 @@ abstract class CodeGenerateTask @Inject constructor() : DefaultTask() {
     abstract val implementation: Property<String>
 
     @get:Input
-    abstract val mode: Property<StorageMode>
+    abstract val mode: Property<FuckMode>
 
     @TaskAction
     fun injectSource() {
@@ -48,7 +48,7 @@ abstract class CodeGenerateTask @Inject constructor() : DefaultTask() {
 
     private fun generate(): String {
         val modeImport =
-            if (mode.get() == StorageMode.Native) "import $PLUGIN_PACKAGE_NAME.Native;" else ""
+            if (mode.get() == FuckMode.Native) "import $PLUGIN_PACKAGE_NAME.Native;" else ""
         val impl = implementation.get()
         val lastIndexOfDot: Int = impl.lastIndexOf(".")
         val implClassName = if (lastIndexOfDot == -1) impl else impl.substring(

@@ -1,4 +1,4 @@
-package fan.akua.protect.stringfucker.keygen;
+package fan.akua.protect.stringfucker;
 
 public interface IKeyGen {
     /**

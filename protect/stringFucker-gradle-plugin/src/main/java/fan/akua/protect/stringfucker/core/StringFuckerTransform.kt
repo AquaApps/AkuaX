@@ -17,13 +17,15 @@ abstract class StringFuckerTransform : AsmClassVisitorFactory<TransformParams> {
         val impl = implClass.get()
         val mode = mode.get()
         val debug = debug.get()
+        val allowPackages = allowPackages.get()
         ClassVisitorFactory.wrapper(
             debug = debug,
             processClassName = processClassName,
             fuckerClassName = fuckerClassName,
             impl = impl,
             mode = mode,
-            nextClassVisitor = nextClassVisitor
+            nextClassVisitor = nextClassVisitor,
+            allowPackages = allowPackages.toList()
         )
     }
 

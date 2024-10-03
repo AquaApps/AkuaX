@@ -1,0 +1,21 @@
+plugins {
+    id 'java-library'
+    id 'maven-publish'
+    id 'signing'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
+}
+
+ext {
+    POM_NAME = "AkuaX StringFucker ChaCha20 Algorithm"
+    POM_DESCRIPTION = "AkuaX StringFucker ChaCha20 Algorithm"
+    POM_VERSION = "1.0.0"
+}
+
+dependencies {
+    api project(':protect:stringFucker-interface')
+    implementation 'org.bouncycastle:bcpkix-jdk15on:1.70'
+}

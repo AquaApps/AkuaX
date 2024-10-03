@@ -1,11 +1,11 @@
 package fan.akua.protect.stringfucker.core.asm
 
+import fan.akua.protect.stringfucker.FuckMode
+import fan.akua.protect.stringfucker.IKeyGen
 import fan.akua.protect.stringfucker.IStringFucker
-import fan.akua.protect.stringfucker.StorageMode
-import fan.akua.protect.stringfucker.keygen.IKeyGen
-import fan.akua.protect.stringfucker.keygen.RandomKeyGen
 import fan.akua.protect.stringfucker.core.mode.IWriter
 import fan.akua.protect.stringfucker.core.mode.JavaModeWriter
+import fan.akua.protect.stringfucker.keygen.RandomKeyGen
 import org.gradle.api.GradleException
 import org.objectweb.asm.AnnotationVisitor
 import org.objectweb.asm.ClassVisitor
@@ -15,7 +15,7 @@ import org.objectweb.asm.Opcodes
 
 class StringFuckerClassVisitor(
     val impl: IStringFucker,
-    val mode: StorageMode,
+    val mode: FuckMode,
     var fuckerClass: String,
     val nextCV: ClassVisitor?,
 ) :
@@ -26,15 +26,19 @@ class StringFuckerClassVisitor(
             "Lfan/akua/protect/stringfucker/annotation/IgnoreStringFucker;"
         lateinit var mKeyGen: IKeyGen
         lateinit var mWriter: IWriter
+        lateinit var mFucker: IStringFucker
 
-        fun encryptAndWrite(value: String, impl: IStringFucker, mv: MethodVisitor) {
+        fun encryptAndWrite(value: String?, mv: MethodVisitor) {
             val key: ByteArray = mKeyGen.generate(value)
-            val encryptValue: ByteArray = impl.encrypt(value, key)
+            val encryptValue: ByteArray = mFucker.encrypt(value, key)
             val result: String = mWriter.write(key, encryptValue, mv)
 
             println("StringFucker: map $value -> $result")
         }
 
+        fun canFuck(str: String?): Boolean {
+            return mFucker.canFuck(str)
+        }
     }
 
     init {
@@ -42,15 +46,16 @@ class StringFuckerClassVisitor(
         fuckerClass = fuckerClass.replace('.', '/')
         mKeyGen = RandomKeyGen()
         when (mode) {
-            StorageMode.Native -> {
+            FuckMode.Native -> {
                 // todo: NativeModeWriter
                 throw GradleException("StringFucker: The Native mode has not been implemented yet.")
             }
 
-            StorageMode.Java -> {
+            FuckMode.Java -> {
                 mWriter = JavaModeWriter(fuckerClass)
             }
         }
+        mFucker = impl
     }
 
     private var mClassName: String? = null
@@ -126,12 +131,12 @@ class StringFuckerClassVisitor(
         return when (name) {
             "<clinit>" -> {
                 isCInitExists = true
-                CInitMethodVisitor(mv, impl).bindFields(mStaticFinalFields, mStaticFields)
+                CInitMethodVisitor(mv).bindFields(mStaticFinalFields, mStaticFields)
                     .bindClassName(mClassName)
             }
 
-            "<init>" -> InitMethodVisitor(mv, impl)
-            else -> DefaultMethodVisitor(mv, impl).bindFields(mStaticFinalFields, mFinalFields)
+            "<init>" -> InitMethodVisitor(mv)
+            else -> DefaultMethodVisitor(mv).bindFields(mStaticFinalFields, mFinalFields)
                 .bindClassName(mClassName)
         }
     }
@@ -142,9 +147,9 @@ class StringFuckerClassVisitor(
             mv.visitCode()
             // Here init static final fields.
             mStaticFinalFields.parallelStream().filter { field ->
-                impl.canFuck(field.value)
+                canFuck(field.value)
             }.forEach { field ->
-                encryptAndWrite(field.value, impl, mv)
+                encryptAndWrite(field.value, mv)
                 mv.visitFieldInsn(
                     Opcodes.PUTSTATIC,
                     mClassName,

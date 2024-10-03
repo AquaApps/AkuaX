@@ -3,6 +3,8 @@ package fan.akua.protect.stringfucker;
 import java.util.ArrayList;
 import java.util.List;
 
+import fan.akua.protect.stringfucker.utils.TextUtil;
+
 public final class BlockList {
     private static final List<String> CLASS_BLOCK_LIST = new ArrayList<>(){{
         add("BuildConfig");
@@ -10,16 +12,9 @@ public final class BlockList {
         add("R2");
         add("StringFucker");
     }};
-    private static boolean isEmpty(CharSequence s) {
-        if (s == null) {
-            return true;
-        } else {
-            return s.isEmpty();
-        }
-    }
 
     public static boolean inBlockList(String name) {
-        return !isEmpty(name) && checkClass(shortClassName(name));
+        return !TextUtil.isEmpty(name) && checkClass(shortClassName(name));
     }
 
     private static boolean checkClass(String name) {

@@ -2,6 +2,8 @@ package fan.akua.protect.stringfucker.keygen;
 
 import java.security.SecureRandom;
 
+import fan.akua.protect.stringfucker.IKeyGen;
+
 public class RandomKeyGen implements IKeyGen {
     private static final int DEFAULT_LENGTH = 8;
 

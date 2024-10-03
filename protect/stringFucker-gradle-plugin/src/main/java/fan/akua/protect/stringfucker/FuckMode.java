@@ -1,6 +1,6 @@
 package fan.akua.protect.stringfucker;
 
-public enum StorageMode {
+public enum FuckMode {
     Java,
     Native
 }

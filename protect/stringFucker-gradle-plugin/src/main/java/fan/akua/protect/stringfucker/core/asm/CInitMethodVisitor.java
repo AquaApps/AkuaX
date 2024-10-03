@@ -11,15 +11,13 @@ import java.util.function.Predicate;
 import fan.akua.protect.stringfucker.IStringFucker;
 
 public class CInitMethodVisitor extends MethodVisitor {
-    private final IStringFucker fucker;
     private List<StringField> mStaticFinalFields;
     private List<StringField> mStaticFields;
     private String mClassName;
     private String lastStashCst;
 
-    public CInitMethodVisitor(MethodVisitor mv, IStringFucker fucker) {
+    public CInitMethodVisitor(MethodVisitor mv) {
         super(Opcodes.ASM9, mv);
-        this.fucker = fucker;
     }
 
     public CInitMethodVisitor bindFields(List<StringField> staticFinalFields, List<StringField> staticFields) {
@@ -37,8 +35,8 @@ public class CInitMethodVisitor extends MethodVisitor {
     public void visitCode() {
         super.visitCode();
         // Here init static final fields.
-        mStaticFinalFields.parallelStream().filter(field -> fucker.canFuck(field.value)).forEach(field -> {
-            StringFuckerClassVisitor.Companion.encryptAndWrite(field.value, fucker, mv);
+        mStaticFinalFields.parallelStream().filter(field -> StringFuckerClassVisitor.Companion.canFuck(field.value)).forEach(field -> {
+            StringFuckerClassVisitor.Companion.encryptAndWrite(field.value, mv);
             CInitMethodVisitor.super.visitFieldInsn(Opcodes.PUTSTATIC, mClassName, field.name, StringFuckerClassVisitor.STRING_DESC);
         });
     }
@@ -46,9 +44,9 @@ public class CInitMethodVisitor extends MethodVisitor {
     @Override
     public void visitLdcInsn(Object cst) {
         // Here init static or static final fields, but we must check field name int 'visitFieldInsn'
-        if (cst instanceof String str && fucker.canFuck(str)) {
+        if (cst instanceof String str && StringFuckerClassVisitor.Companion.canFuck(str)) {
             lastStashCst = str;
-            StringFuckerClassVisitor.Companion.encryptAndWrite(lastStashCst, fucker, mv);
+            StringFuckerClassVisitor.Companion.encryptAndWrite(lastStashCst, mv);
         } else {
             lastStashCst = null;
             super.visitLdcInsn(cst);

@@ -6,11 +6,8 @@ import org.objectweb.asm.Opcodes;
 import fan.akua.protect.stringfucker.IStringFucker;
 
 public class InitMethodVisitor extends MethodVisitor {
-    private final IStringFucker fucker;
-
-    public InitMethodVisitor(MethodVisitor mv, IStringFucker fucker) {
+    public InitMethodVisitor(MethodVisitor mv) {
         super(Opcodes.ASM9, mv);
-        this.fucker = fucker;
     }
 
     @Override

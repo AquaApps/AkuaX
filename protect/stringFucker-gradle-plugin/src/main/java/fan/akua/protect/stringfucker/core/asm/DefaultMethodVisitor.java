@@ -11,14 +11,12 @@ import java.util.function.Predicate;
 import fan.akua.protect.stringfucker.IStringFucker;
 
 public class DefaultMethodVisitor extends MethodVisitor {
-    private final IStringFucker fucker;
     private List<StringField> mStaticFinalFields;
     private List<StringField> mFinalFields;
     private String mClassName;
 
-    public DefaultMethodVisitor(MethodVisitor mv, IStringFucker fucker) {
+    public DefaultMethodVisitor(MethodVisitor mv) {
         super(Opcodes.ASM9, mv);
-        this.fucker = fucker;
     }
 
     public DefaultMethodVisitor bindFields(List<StringField> staticFinalFields, List<StringField> finalFields) {
@@ -34,7 +32,7 @@ public class DefaultMethodVisitor extends MethodVisitor {
 
     @Override
     public void visitLdcInsn(Object cst) {
-        if (cst instanceof String str && fucker.canFuck(str)) {
+        if (cst instanceof String str && StringFuckerClassVisitor.Companion.canFuck(str)) {
             // If the value is a static final field
             Optional<StringField> firstStaticFinalField = mStaticFinalFields.parallelStream()
                     .filter(field -> cst.equals(field.value))
@@ -54,7 +52,7 @@ public class DefaultMethodVisitor extends MethodVisitor {
             if (firstFinalField.isPresent()) return;
 
             // local variables
-            StringFuckerClassVisitor.Companion.encryptAndWrite(str, fucker, mv);
+            StringFuckerClassVisitor.Companion.encryptAndWrite(str, mv);
             return;
         }
         super.visitLdcInsn(cst);

@@ -20,5 +20,10 @@ abstract class PluginExtension {
     /**
      * How the store string, default is in java.
      */
-    var mode: StorageMode = StorageMode.Java
+    var mode: FuckMode = FuckMode.Java
+
+    /**
+     * The java packages will be applied. Default is effect on all packages.
+     */
+    var allowPackages : Array<String> = emptyArray()
 }

@@ -9,6 +9,7 @@ import com.android.build.gradle.BaseExtension
 import com.android.build.gradle.LibraryExtension
 import fan.akua.protect.stringfucker.core.CodeGenerateTask
 import fan.akua.protect.stringfucker.core.StringFuckerTransform
+import fan.akua.protect.stringfucker.core.toParams
 import org.gradle.api.GradleException
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -74,12 +75,7 @@ class StringFuckerPlugin : Plugin<Project> {
                 transformClassesWith(
                     StringFuckerTransform::class.java,
                     InstrumentationScope.PROJECT
-                ) { param ->
-                    param.fuckerClassName.set("${CodeGenerateTask.PLUGIN_PACKAGE_NAME}.${CodeGenerateTask.PLUGIN_CLASS_NAME}")
-                    param.mode.set(stringFucker.mode)
-                    param.debug.set(stringFucker.debug)
-                    param.implClass.set(stringFucker.implementation)
-                }
+                ) { param -> param.toParams(stringFucker) }
                 setAsmFramesComputationMode(FramesComputationMode.COMPUTE_FRAMES_FOR_INSTRUMENTED_METHODS)
             }
             injectTask(agpExtension) { baseVariant ->
