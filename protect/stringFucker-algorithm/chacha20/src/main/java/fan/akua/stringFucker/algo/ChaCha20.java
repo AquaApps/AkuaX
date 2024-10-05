@@ -7,29 +7,30 @@ import org.bouncycastle.crypto.params.ParametersWithIV;
 import java.io.Serializable;
 import java.nio.charset.StandardCharsets;
 import java.security.SecureRandom;
+import java.util.Arrays;
 
 import fan.akua.protect.stringfucker.IStringFucker;
 
 public class ChaCha20 implements IStringFucker, Serializable {
-    private final byte[] nonce = new byte[12];
-
-    public ChaCha20() {
-        new SecureRandom().nextBytes(nonce);
+    @Override
+    public byte[] keygen(String data) {
+        byte[] random = new byte[40];
+        new SecureRandom().nextBytes(random);
+        return random;
     }
 
     @Override
     public byte[] encrypt(String data, byte[] key) {
-        return chacha20(data.getBytes(StandardCharsets.UTF_8), key, nonce);
+        byte[] first32 = Arrays.copyOfRange(key, 0, 32);
+        byte[] last8 = Arrays.copyOfRange(key, 32, 40);
+        return chacha20(data.getBytes(StandardCharsets.UTF_8), first32, last8);
     }
 
     @Override
     public String decrypt(byte[] data, byte[] key) {
-        return new String(chacha20(data, key, nonce), StandardCharsets.UTF_8);
-    }
-
-    @Override
-    public boolean canFuck(String data) {
-        return true;
+        byte[] first32 = Arrays.copyOfRange(key, 0, 32);
+        byte[] last8 = Arrays.copyOfRange(key, 32, 40);
+        return new String(chacha20(data, first32, last8), StandardCharsets.UTF_8);
     }
 
     private static byte[] chacha20(byte[] value, byte[] key, byte[] nonce) {

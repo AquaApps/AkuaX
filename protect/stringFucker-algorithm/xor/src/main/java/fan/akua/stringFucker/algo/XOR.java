@@ -2,10 +2,18 @@ package fan.akua.stringFucker.algo;
 
 import java.io.Serializable;
 import java.nio.charset.StandardCharsets;
+import java.security.SecureRandom;
 
 import fan.akua.protect.stringfucker.IStringFucker;
 
 public class XOR implements IStringFucker, Serializable {
+    @Override
+    public byte[] keygen(String data) {
+        byte[] random = new byte[32];
+        new SecureRandom().nextBytes(random);
+        return random;
+    }
+
     @Override
     public byte[] encrypt(String data, byte[] key) {
         return xor(data.getBytes(StandardCharsets.UTF_8), key);
@@ -14,11 +22,6 @@ public class XOR implements IStringFucker, Serializable {
     @Override
     public String decrypt(byte[] data, byte[] key) {
         return new String(xor(data, key), StandardCharsets.UTF_8);
-    }
-
-    @Override
-    public boolean canFuck(String data) {
-        return true;
     }
 
     private static byte[] xor(byte[] data, byte[] key) {

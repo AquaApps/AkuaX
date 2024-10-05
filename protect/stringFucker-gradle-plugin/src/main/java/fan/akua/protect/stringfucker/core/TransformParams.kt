@@ -15,10 +15,13 @@ abstract class TransformParams : InstrumentationParameters {
     abstract val debug: Property<Boolean>
 
     @get:Input
-    abstract val mode: Property<FuckMode>
+    abstract val deleteIgnoreAnnotation: Property<Boolean>
 
     @get:Input
     abstract val implClass: Property<Any>
+
+    @get:Input
+    abstract val mode: Property<FuckMode>
 
     @get:Input
     abstract val allowPackages: Property<Array<String>>
@@ -26,8 +29,9 @@ abstract class TransformParams : InstrumentationParameters {
 
 fun TransformParams.toParams(extension: PluginExtension) {
     this.fuckerClassName.set("${CodeGenerateTask.PLUGIN_PACKAGE_NAME}.${CodeGenerateTask.PLUGIN_CLASS_NAME}")
-    this.mode.set(extension.mode)
     this.debug.set(extension.debug)
+    this.deleteIgnoreAnnotation.set(extension.deleteIgnoreAnnotation)
     this.implClass.set(extension.implementation)
+    this.mode.set(extension.mode)
     this.allowPackages.set(extension.allowPackages)
 }

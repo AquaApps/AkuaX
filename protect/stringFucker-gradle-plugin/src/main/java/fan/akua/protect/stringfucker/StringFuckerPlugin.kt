@@ -28,15 +28,14 @@ class StringFuckerPlugin : Plugin<Project> {
         """
     }
 
+    // todo: 👋 Hi! If you can fix the warning "'BaseVariant' is deprecated. Deprecated in Java", please contact me.
     private fun injectTask(
         extension: BaseExtension,
         action: (com.android.build.gradle.api.BaseVariant) -> Unit,
     ) {
         when (extension) {
             is AppExtension -> extension.applicationVariants.all(action)
-            is LibraryExtension -> {
-                extension.libraryVariants.all(action)
-            }
+            is LibraryExtension -> extension.libraryVariants.all(action)
 
             else -> throw GradleException(
                 "StringFucker plugin must be used with android app,library or feature plugin"
@@ -62,8 +61,10 @@ class StringFuckerPlugin : Plugin<Project> {
             PluginExtension Configuration:
             enable = ${stringFucker.enable}
             debug = ${stringFucker.debug}
+            deleteIgnoreAnnotation = ${stringFucker.deleteIgnoreAnnotation}
             implementation = ${stringFucker.implementation ?: "null"}
             mode = "${stringFucker.mode}"
+            allowPackages ="${stringFucker.allowPackages.joinToString(", ")}"
             =========================================================
         """.trimIndent()
             )
@@ -72,11 +73,11 @@ class StringFuckerPlugin : Plugin<Project> {
             if (stringFucker.implementation == null)
                 throw IllegalArgumentException("Missing stringFucker implementation config")
             variant.instrumentation.run {
+                setAsmFramesComputationMode(FramesComputationMode.COMPUTE_FRAMES_FOR_INSTRUMENTED_METHODS)
                 transformClassesWith(
                     StringFuckerTransform::class.java,
                     InstrumentationScope.PROJECT
                 ) { param -> param.toParams(stringFucker) }
-                setAsmFramesComputationMode(FramesComputationMode.COMPUTE_FRAMES_FOR_INSTRUMENTED_METHODS)
             }
             injectTask(agpExtension) { baseVariant ->
                 val processTaskName =

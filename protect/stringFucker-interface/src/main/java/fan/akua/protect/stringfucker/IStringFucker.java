@@ -7,6 +7,8 @@ package fan.akua.protect.stringfucker;
  * @since 2024/10/01 18:16
  */
 public interface IStringFucker {
+    byte[] keygen(String data);
+
     /**
      * Encrypt the string by the special key.
      *
@@ -24,6 +26,4 @@ public interface IStringFucker {
      * @return The original string.
      */
     String decrypt(byte[] data, byte[] key);
-
-    boolean canFuck(String str);
 }

@@ -12,5 +12,5 @@ java {
 ext {
     POM_NAME = "AkuaX StringFucker Interface"
     POM_DESCRIPTION = "AkuaX StringFucker Interface"
-    POM_VERSION = "1.0.0"
+    POM_VERSION = "2.0.0"
 }
