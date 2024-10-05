@@ -43,7 +43,7 @@ dependencyResolutionManagement {
 ```kotlin
 buildscript {
     dependencies {
-        classpath 'fan.akua.akuax.stringFucker-algorithm:xor:+'
+        classpath 'fan.akua.akuax.stringFucker-algorithm:chacha20:+'
         classpath 'fan.akua.akuax.protect:stringFucker-gradle-plugin:+'
     }
 }
@@ -55,18 +55,22 @@ plugins {
 在app模块的build.gradle中加入
 
 ```groovy
-import fan.akua.protect.stringfucker.StorageMode
-import fan.akua.stringFucker.algo.XOR
+import fan.akua.protect.stringfucker.FuckMode
+import fan.akua.stringFucker.algo.ChaCha20
 apply plugin: 'stringFucker'
 
 stringFucker {
-    debug false
     enable true
-    implementation new XOR()
-    mode StorageMode.Java
+    implementation new ChaCha20()
+    mode FuckMode.Java
+    debug false
+    allowPackages = ['android.app', 'android.content', 'android.os', 'android.widget',
+                     'android.activity', 'android.defaults', 'android.utils',
+                     'androidx.activity', 'androidx.appcompat', 'androidx.fragment',
+                     'androidx.preference', 'androidx.recyclerview', 'cn.bmob.v3']
 }
 dependencies {
-    implementation 'fan.akua.akuax.stringFucker-algorithm:xor:+'
+    implementation 'fan.akua.akuax.stringFucker-algorithm:chacha20:+'
 }
 ```
 
