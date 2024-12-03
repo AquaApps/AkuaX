@@ -39,6 +39,11 @@ public class FuckClassVisitor extends ClassVisitor {
             @Override
             public void visitLdcInsn(Object value) {
                 if (value instanceof String str) {
+                    if (str.length() > 100) {
+                        System.out.printf("[warning]String'%s' too long to enc.\n", str);
+                        super.visitLdcInsn(value);
+                        return;
+                    }
                     byte[] key = params.impl().keygen(str);
                     byte[] encrypt = params.impl().encrypt(str, key);
 

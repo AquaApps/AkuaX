@@ -2,6 +2,9 @@
 
 ### stringFucker-gradle-plugin
 
+2.0.1
+- Fix a log of bugs
+
 2.0.0
 - Fix a log of bugs
 - Support `deleteIgnoreAnnotation`
