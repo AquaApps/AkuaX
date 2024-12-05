@@ -14,7 +14,6 @@ dependencies {
     implementation gradleApi()
     implementation localGroovy()
     implementation 'com.android.tools.build:gradle:8.0.2'
-    implementation project(':protect:stringFucker-interface')
 }
 
 sourceSets {
@@ -43,7 +42,7 @@ tasks {
 }
 
 ext {
-    POM_NAME = "AkuaX StringFucker GradlePlugin"
-    POM_DESCRIPTION = "AkuaX StringFucker GradlePlugin"
-    POM_VERSION = "2.0.2"
+    POM_NAME = "AkuaX ByteFlow GradlePlugin"
+    POM_DESCRIPTION = "AkuaX ByteFlow GradlePlugin"
+    POM_VERSION = "alpha0.1"
 }

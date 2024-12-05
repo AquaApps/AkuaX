@@ -22,24 +22,10 @@ abstract class StringFuckerTransform : AsmClassVisitorFactory<TransformParams> {
         classContext: ClassContext,
         nextClassVisitor: ClassVisitor,
     ): ClassVisitor = with(parameters.get()) {
-        val processClassName = classContext.currentClassData.className
         val fuckerClassName = fuckerClassName.get().replace('.', '/')
-        val debug = debug.get()
         val deleteIgnoreAnnotation = deleteIgnoreAnnotation.get()
         val impl = implClass.get()
-        val mode = mode.get()
-        val allowPackages = allowPackages.get().toList()
-
-        if (BlockList.inBlockList(processClassName) or
-            !isInAllowPackages(allowPackages, processClassName)
-        ) {
-            if (debug)
-                println("StringFucker ignore: $processClassName")
-            return createEmpty(nextClassVisitor)
-        }
-        if (debug)
-            println("StringFucker process: $processClassName")
-        val modeWriter = when (mode) {
+        val modeWriter = when (val mode = mode.get()) {
             FuckMode.Java -> JavaModeModeWriter(fuckerClassName)
             FuckMode.Native -> NativeModeModeWriter(fuckerClassName)
             else -> throw GradleException("Unknown Mode(${mode}).")
@@ -50,7 +36,14 @@ abstract class StringFuckerTransform : AsmClassVisitorFactory<TransformParams> {
         )
     }
 
-    override fun isInstrumentable(classData: ClassData): Boolean {
+    override fun isInstrumentable(classData: ClassData): Boolean = with(parameters.get()) {
+        if (BlockList.inBlockList(classData.className) or
+            !isInAllowPackages(allowPackages.get().toList(), classData.className)
+        ) {
+            if (debug.get())
+                println("StringFucker ignore: $classData.className")
+            return false
+        }
         return true
     }
 
@@ -64,9 +57,5 @@ abstract class StringFuckerTransform : AsmClassVisitorFactory<TransformParams> {
         return fogPackages.parallelStream().filter { pack ->
             className.replace('/', '.').startsWith("$pack.")
         }.findAny().isPresent
-    }
-
-    private fun createEmpty(cv: ClassVisitor): ClassVisitor {
-        return object : ClassVisitor(Opcodes.ASM9, cv) {}
     }
 }

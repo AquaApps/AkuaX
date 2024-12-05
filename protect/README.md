@@ -2,6 +2,9 @@
 
 ### stringFucker-gradle-plugin
 
+2.0.2
+- Improve performance
+
 2.0.1
 - Fix a log of bugs
 
