@@ -1,0 +1,23 @@
+plugins {
+    id 'java-library'
+    id 'maven-publish'
+    id 'signing'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_21
+    targetCompatibility = JavaVersion.VERSION_21
+}
+
+dependencies {
+    implementation "org.ow2.asm:asm:$ow2_asm_version"
+//    implementation "org.ow2.asm:asm-commons:$ow2_asm_version"
+//    implementation "org.ow2.asm:asm-tree:$ow2_asm_version"
+//    implementation "org.ow2.asm:asm-util:$ow2_asm_version"
+}
+
+ext {
+    POM_NAME = "AkuaX ASM"
+    POM_DESCRIPTION = "AkuaX ASM"
+    POM_VERSION = "alpha0.1"
+}

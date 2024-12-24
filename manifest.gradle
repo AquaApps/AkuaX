@@ -14,6 +14,8 @@ ext {
 
     lsposed_hiddenapibypass_version = "4.3"
 
+    ow2_asm_version = "9.7.1"
+
     versionCode = gitCommitCount
     versionName = "git.${gitCommitCount}.${gitCommitId}"
 }
